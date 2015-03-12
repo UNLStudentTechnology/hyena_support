@@ -1,0 +1,19 @@
+<unl-toolbar>
+	<a ng-click="go('/{{groupId}}', 'animate-slide-left')" title="Back to Assets"><unl-icon-button icon="arrow-back"></unl-icon-button></a>
+	<span flex class="align-center">{{ asset.title || 'New Asset' }}</span>
+</unl-toolbar>
+<div class="content-container">
+	<!-- Asset Settings -->
+	<form name="newAssetForm" ng-submit="createAsset()">
+		<unl-list-group>
+			<unl-list-item-header>General</unl-list-item-header>
+			<unl-list-item-label heading="Title">
+				<div class="tools">
+					<input required type="text" name="asset-title" ng-model="asset.title">
+				</div>
+			</unl-list-item-label>
+		</unl-list-group>
+		<button type="submit" ng-disabled="newAssetForm.$invalid">Create asset</button>
+	</form>
+	<!-- End Asset Settings -->
+</div>

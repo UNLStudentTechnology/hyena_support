@@ -1,0 +1,25 @@
+<unl-toolbar>
+	<unl-drawer-toggle ng-click="toggleMainDrawer()"></unl-drawer-toggle>
+  	<span flex class="align-center">Support</span>
+  	<a ng-click="go('/{{groupId}}/kiosk')" title="Enter Kiosk Mode"><unl-icon-button icon="fullscreen"></unl-icon-button></a>
+  	<a ng-click="go('/{{groupId}}/asset/new')" ng-show="groupId" title="Create New Asset"><unl-icon-button icon="add"></unl-icon-button></a>
+</unl-toolbar>
+<!-- Group List -->
+<div class="content-container" ng-hide="groupId">
+  <unl-list-group>
+    <unl-list-item-label class="animate-fade-left" ng-repeat="group in currentUser.groups | orderBy:'title'" heading="{{group.title}}" link>
+      <a ng-href="/{{group.id}}"><paper-ripple fit></paper-ripple></a>
+    </unl-list-item-label>
+  </unl-list-group>
+</div>
+<!-- End Group List -->
+<div class="content-container" ng-show="groupId">
+  <unl-empty-content ng-hide="assets.length > 0" text="No Assets Yet" fit>
+    <span subhead>Add your first asset by hitting <core-icon icon="add"></core-icon> above</span>
+  </unl-empty-content>
+  <unl-list-group>
+    <unl-list-item-label class="animate-fade-left" ng-repeat="asset in assets | orderBy:'title'" heading="{{asset.title}}" link>
+      <a ng-click="go('/{{groupId}}/asset/{{asset.$id}}')"><paper-ripple fit></paper-ripple></a>
+    </unl-list-item-label>
+  </unl-list-group>
+</div>
