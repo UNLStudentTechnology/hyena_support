@@ -1,0 +1,5 @@
+<unl-toolbar>
+	<a ng-click="go('/{{groupId}}', 'animate-slide-left')" title="Back to services"><unl-icon-button icon="arrow-back"></unl-icon-button></a>
+	<span flex class="align-center">{{ service.title || 'Loading' }}</span>
+	<a ng-click="go('/{{groupId}}/service/{{serviceId}}/settings')" title="Settings"><unl-icon-button icon="settings"></unl-icon-button></a>
+</unl-toolbar>

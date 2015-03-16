@@ -1,7 +1,8 @@
 <div class="icon-header">
 	<h2 class="align-center">Get help where you need it <span class="subhead">Choose a product and we'll find you help via chat, appointment, and more.</span></h2>
 </div>
-<unl-list-group horizontal layout wrap>
-	<unl-list-item-boxed flex four heading="{{asset.title}}" detail="Graphic Design" ng-repeat="asset in assets">
+<unl-list-group horizontal layout wrap gutters>
+	<unl-list-item-boxed flex auto heading="{{asset.title}}" image="{{asset.image_url}}" detail="Graphic Design" ng-repeat="asset in assets" link>
+		<a ng-click="go('/{{groupId}}/kiosk/method', 'animate-fade-left');setActiveAsset(asset)" title="Select this product"><paper-ripple fit></paper-ripple></a>
 	</unl-list-item-boxed>
 </unl-list-group>

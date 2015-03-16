@@ -39,15 +39,25 @@ angular
         templateUrl: 'views/main.html',
         controller: 'MainCtrl'
       })
-      .state('unl-layout.new', {
+      .state('unl-layout.new_asset', {
         url: '/:groupId/asset/new',
-        templateUrl: 'views/new.html',
+        templateUrl: 'views/new_asset.html',
         controller: 'NewCtrl'
       })
       .state('unl-layout.asset', {
         url: '/:groupId/asset/:assetId',
         templateUrl: 'views/asset.html',
         controller: 'AssetCtrl'
+      })
+      .state('unl-layout.new_service', {
+        url: '/:groupId/service/new',
+        templateUrl: 'views/new_service.html',
+        controller: 'NewServiceCtrl'
+      })
+      .state('unl-layout.service', {
+        url: '/:groupId/service/:serviceId',
+        templateUrl: 'views/service.html',
+        controller: 'ServiceCtrl'
       })
       //Kiosk
       .state('unl-layout-kiosk.support_kiosk', {

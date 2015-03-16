@@ -1,8 +1,7 @@
-<unl-toolbar>
+<unl-toolbar tabs>
 	<unl-drawer-toggle ng-click="toggleMainDrawer()"></unl-drawer-toggle>
   	<span flex class="align-center">Support</span>
-  	<a ng-click="go('/{{groupId}}/kiosk')" title="Enter Kiosk Mode"><unl-icon-button icon="fullscreen"></unl-icon-button></a>
-  	<a ng-click="go('/{{groupId}}/asset/new')" ng-show="groupId" title="Create New Asset"><unl-icon-button icon="add"></unl-icon-button></a>
+  	<a ng-click="go('/{{groupId}}/kiosk/choose')" title="Enter Kiosk Mode"><unl-icon-button icon="fullscreen"></unl-icon-button></a>
 </unl-toolbar>
 <!-- Group List -->
 <div class="content-container" ng-hide="groupId">
@@ -13,13 +12,39 @@
   </unl-list-group>
 </div>
 <!-- End Group List -->
-<div class="content-container" ng-show="groupId">
-  <unl-empty-content ng-hide="assets.length > 0" text="No Assets Yet" fit>
-    <span subhead>Add your first asset by hitting <core-icon icon="add"></core-icon> above</span>
-  </unl-empty-content>
-  <unl-list-group>
-    <unl-list-item-label class="animate-fade-left" ng-repeat="asset in assets | orderBy:'title'" heading="{{asset.title}}" link>
-      <a ng-click="go('/{{groupId}}/asset/{{asset.$id}}')"><paper-ripple fit></paper-ripple></a>
-    </unl-list-item-label>
-  </unl-list-group>
-</div>
+<unl-tabs bind-polymer item="{{selectedTab}}" ng-show="groupId">
+  <unl-tab>Assets</unl-tab>
+  <unl-tab>Services</unl-tab>
+</unl-tabs>
+<unl-pages item="{{selectedTab}}" flex ng-show="groupId">
+  <unl-panel fit>
+    <unl-empty-content ng-hide="assets.length > 0" text="No Assets Yet" fit>
+      <span subhead>Add your first asset by hitting <core-icon icon="add"></core-icon> above</span>
+    </unl-empty-content>
+    <div class="content-container">
+      <div horizontal layout end-justified class="margin-bottom">
+        <unl-tooltip position="left" label="Create new asset"><unl-icon-button ng-click="go('/{{groupId}}/asset/new')" icon="add"></unl-icon-button></unl-tooltip>
+      </div>
+      <unl-list-group>
+        <unl-list-item-label class="animate-fade-left" ng-repeat="asset in assets | orderBy:'title'" heading="{{asset.title}}" link>
+          <a ng-click="go('/{{groupId}}/asset/{{asset.$id}}')"><paper-ripple fit></paper-ripple></a>
+        </unl-list-item-label>
+      </unl-list-group>
+    </div>
+  </unl-panel>
+  <unl-panel fit>
+    <unl-empty-content ng-hide="services.length > 0" text="No services Yet" fit>
+      <span subhead>Add your first service by hitting <core-icon icon="add"></core-icon> above</span>
+    </unl-empty-content>
+    <div class="content-container">
+      <div horizontal layout end-justified class="margin-bottom">
+        <unl-tooltip position="left" label="Create new service"><unl-icon-button ng-click="go('/{{groupId}}/service/new')" icon="add"></unl-icon-button></unl-tooltip>
+      </div>
+      <unl-list-group>
+        <unl-list-item-label class="animate-fade-left" ng-repeat="service in services | orderBy:'title'" heading="{{service.title}}" label="{{service.description}}" link>
+          <a ng-click="go('/{{groupId}}/service/{{service.$id}}')"><paper-ripple fit></paper-ripple></a>
+        </unl-list-item-label>
+      </unl-list-group>
+    </div>
+  </unl-panel>
+</unl-pages>

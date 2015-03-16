@@ -8,7 +8,7 @@
  * Controller of the hyenaSupportApp
  */
 angular.module('hyenaSupportApp')
-  .controller('AssetCtrl', function ($scope, $rootScope, $stateParams, AssetService, Notification) {
+  .controller('AssetCtrl', function ($scope, $rootScope, $stateParams, AssetService, ServiceService, Notification) {
     //Get and set the current group ID
   	var groupId = $stateParams.groupId;
   	$scope.groupId = $rootScope.currentGroupId = groupId;
@@ -18,4 +18,8 @@ angular.module('hyenaSupportApp')
   	//Get asset
   	var asset = AssetService.get(assetId).$asObject();
   	asset.$bindTo($scope, 'asset');
+
+    //Get services
+    $scope.services = ServiceService.groupAssets(groupId, 10).$asArray();
+    
   });

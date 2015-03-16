@@ -8,7 +8,7 @@
  * Controller of the hyenaSupportApp
  */
 angular.module('hyenaSupportApp')
-  .controller('KioskCtrl', function ($scope, $rootScope, $stateParams, FirebaseGroupService, AssetService) {
+  .controller('KioskCtrl', function ($scope, $rootScope, $stateParams, FirebaseGroupService, AssetService, ServiceService) {
     //Get and set the current group ID
   	var groupId = $stateParams.groupId;
   	$scope.groupId = $rootScope.currentGroupId = groupId;
@@ -21,6 +21,19 @@ angular.module('hyenaSupportApp')
   	});
 
   	//Get Assets
-    if(groupId !== "")
+    if(groupId !== "") {
       $scope.assets = AssetService.groupAssets(groupId, 10).$asArray();
+      $scope.services = ServiceService.groupAssets(groupId, 10).$asArray();
+    }
+
+    //Form Data
+    $scope.active_asset = {};
+
+    /**
+     * Set the current asset that we're looking for help for.
+     * @param object assetObject
+     */
+    $scope.setActiveAsset = function(assetObject) {
+      $scope.active_asset = assetObject;
+    };
   });

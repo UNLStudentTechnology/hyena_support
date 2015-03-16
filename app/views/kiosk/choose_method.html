@@ -1,6 +1,10 @@
 <div class="icon-header">
-	<h2 class="align-center">Get help where you need it <span class="subhead">Choose a product and we'll find you help via chat, appointment, and more.</span></h2>
+	<h2 class="align-center">How would you like to get help?<span class="subhead">Choose a support option for your topic.</span></h2>
 </div>
-<ul>
-	<li ng-repeat="asset in assets">{{asset.title}}</li>
-</ul>
+<unl-list-group horizontal layout wrap gutters class="no-margin">
+	<unl-list-item-boxed flex auto heading="{{service.friendly_title}}" image="{{service.image_url}}" detail="{{service.description}}" ng-repeat="service in services" link>
+		<a title="Select this service"><paper-ripple fit></paper-ripple></a>
+	</unl-list-item-boxed>
+</unl-list-group>
+
+<span>{{active_asset.title}}</span>

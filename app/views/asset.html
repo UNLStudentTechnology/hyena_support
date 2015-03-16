@@ -3,3 +3,13 @@
 	<span flex class="align-center">{{ asset.title || 'Loading' }}</span>
 	<a ng-click="go('/{{groupId}}/asset/{{assetId}}/settings')" title="Settings"><unl-icon-button icon="settings"></unl-icon-button></a>
 </unl-toolbar>
+
+<div class="content-container">
+	<unl-list-group>
+		<unl-list-item-label heading="{{service.title}}" label="{{service.description}}" ng-repeat="service in services">
+			<div class="tools">
+				<unl-toggle-button value="{{asset.services}}" bind-polymer></unl-toggle-button>
+			</div>
+		</unl-list-item-label>
+	</unl-list-group>
+</div>
