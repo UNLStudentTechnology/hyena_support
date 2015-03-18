@@ -36,4 +36,9 @@ angular.module('hyenaSupportApp')
     $scope.setActiveAsset = function(assetObject) {
       $scope.active_asset = assetObject;
     };
+
+    $scope.setServiceUrl = function(serviceUrl) {
+      var builtUrl = serviceUrl.replace(/:([a-zA-Z0-9_]+)/g, encodeURI($scope.active_asset.title));
+      return builtUrl;
+    };
   });

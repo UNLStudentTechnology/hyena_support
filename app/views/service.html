@@ -1,5 +1,33 @@
 <unl-toolbar>
 	<a ng-click="go('/{{groupId}}', 'animate-slide-left')" title="Back to services"><unl-icon-button icon="arrow-back"></unl-icon-button></a>
 	<span flex class="align-center">{{ service.title || 'Loading' }}</span>
-	<a ng-click="go('/{{groupId}}/service/{{serviceId}}/settings')" title="Settings"><unl-icon-button icon="settings"></unl-icon-button></a>
 </unl-toolbar>
+<div class="content-container">
+	<!-- Service Settings -->
+	<form name="editServiceForm">
+		<unl-list-group>
+			<unl-list-item-header>General</unl-list-item-header>
+			<unl-list-item-details heading="Title">
+				<div class="tools">
+					<input required type="text" name="service-title" ng-model="service.title">
+				</div>
+			</unl-list-item-details>
+			<unl-list-item-details heading="Friendly Title">
+				<div class="tools">
+					<input required type="text" name="service-friendly-title" ng-model="service.friendly_title">
+				</div>
+			</unl-list-item-details>
+			<unl-list-item-details heading="Description">
+				<div class="tools">
+					<input required type="text" name="service-description" ng-model="service.description">
+				</div>
+			</unl-list-item-details>
+			<unl-list-item-details heading="URL to Service" details="Use the :asset flag to send the asset's name to service.">
+				<div class="tools">
+					<input required type="text" name="service-url" ng-model="service.url">
+				</div>
+			</unl-list-item-details>
+		</unl-list-group>
+	</form>
+	<!-- End Service Settings -->
+</div>

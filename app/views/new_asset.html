@@ -7,11 +7,21 @@
 	<form name="newAssetForm" ng-submit="createAsset()">
 		<unl-list-group>
 			<unl-list-item-header>General</unl-list-item-header>
-			<unl-list-item-label heading="Title">
+			<unl-list-item-details heading="Title">
 				<div class="tools">
 					<input required type="text" name="asset-title" ng-model="asset.title">
 				</div>
-			</unl-list-item-label>
+			</unl-list-item-details>
+			<unl-list-item-details heading="Label">
+				<div class="tools">
+					<input required type="text" name="asset-label" ng-model="asset.label">
+				</div>
+			</unl-list-item-details>
+			<unl-list-item-details heading="Active">
+				<div class="tools">
+					<unl-toggle-button value="{{asset.active}}" bind-polymer></unl-toggle-button>
+				</div>
+			</unl-list-item-details>
 		</unl-list-group>
 		<button type="submit" ng-disabled="newAssetForm.$invalid">Create asset</button>
 	</form>

@@ -7,21 +7,21 @@
 	<form name="newServiceForm" ng-submit="createService()">
 		<unl-list-group>
 			<unl-list-item-header>General</unl-list-item-header>
-			<unl-list-item-label heading="Title">
+			<unl-list-item-details heading="Title">
 				<div class="tools">
 					<input required type="text" name="service-title" ng-model="service.title">
 				</div>
-			</unl-list-item-label>
-			<unl-list-item-label heading="Friendly Title">
+			</unl-list-item-details>
+			<unl-list-item-details heading="Friendly Title">
 				<div class="tools">
 					<input required type="text" name="service-friendly-title" ng-model="service.friendly_title">
 				</div>
-			</unl-list-item-label>
-			<unl-list-item-label heading="Description">
+			</unl-list-item-details>
+			<unl-list-item-details heading="Description">
 				<div class="tools">
 					<input required type="text" name="service-description" ng-model="service.description">
 				</div>
-			</unl-list-item-label>
+			</unl-list-item-details>
 		</unl-list-group>
 		<button type="submit" ng-disabled="newServiceForm.$invalid">Create service</button>
 	</form>

@@ -18,7 +18,8 @@ angular.module('hyenaSupportApp')
     $scope.asset = {
     	created_at: moment().format(),
         group_id: parseInt(groupId),
-        title: ''
+        title: '',
+        active: 1
     };
 
     /**

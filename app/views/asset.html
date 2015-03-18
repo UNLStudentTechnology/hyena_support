@@ -5,11 +5,32 @@
 </unl-toolbar>
 
 <div class="content-container">
-	<unl-list-group>
-		<unl-list-item-label heading="{{service.title}}" label="{{service.description}}" ng-repeat="service in services">
-			<div class="tools">
-				<unl-toggle-button value="{{asset.services}}" bind-polymer></unl-toggle-button>
-			</div>
-		</unl-list-item-label>
-	</unl-list-group>
+	<!-- Asset Settings -->
+	<form name="newAssetForm" ng-submit="createAsset()">
+		<unl-list-group>
+			<unl-list-item-header>General</unl-list-item-header>
+			<unl-list-item-details heading="Title">
+				<div class="tools">
+					<input required type="text" name="asset-title" ng-model="asset.title">
+				</div>
+			</unl-list-item-details>
+			<unl-list-item-details heading="Label">
+				<div class="tools">
+					<input required type="text" name="asset-label" ng-model="asset.label">
+				</div>
+			</unl-list-item-details>
+			<unl-list-item-details heading="Active">
+				<div class="tools">
+					<unl-toggle-button value="{{asset.active}}" bind-polymer></unl-toggle-button>
+				</div>
+			</unl-list-item-details>
+			<unl-list-item-header>Available Services</unl-list-item-header>
+			<unl-list-item-details heading="{{service.title}}" details="{{service.description}}" ng-repeat="service in services">
+				<div class="tools">
+					<unl-toggle-button value="{{asset.services[service.$id]}}" bind-polymer></unl-toggle-button>
+				</div>
+			</unl-list-item-details>
+		</unl-list-group>
+	</form>
+	<!-- End Asset Settings -->
 </div>
