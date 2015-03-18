@@ -1,4 +1,4 @@
-// Generated on 2015-03-11 using generator-hyena 0.10.0
+// Generated on 2015-02-16 using generator-hyena 0.10.0
 'use strict';
 
 // # Globbing
@@ -363,9 +363,9 @@ module.exports = function (grunt) {
           ]
         }, {
           expand: true, 
-          cwd: './',
-          dest: '',
-          src: ['elements/**', '!**/node_modules/**', '!**/bower_components/**']
+          cwd: './bower_components/unl-components',
+          dest: '<%= yeoman.dist %>/elements/unl-components/',
+          src: ['**', '!**/node_modules/**'], 
         }, {
           expand: true,
           cwd: '.tmp/images',
