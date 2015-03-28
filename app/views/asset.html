@@ -1,7 +1,6 @@
 <unl-toolbar>
 	<a ng-click="go('/{{groupId}}', 'animate-slide-left')" title="Back to Assets"><unl-icon-button icon="arrow-back"></unl-icon-button></a>
 	<span flex class="align-center">{{ asset.title || 'Loading' }}</span>
-	<a ng-click="go('/{{groupId}}/asset/{{assetId}}/settings')" title="Settings"><unl-icon-button icon="settings"></unl-icon-button></a>
 </unl-toolbar>
 
 <div class="content-container">
@@ -19,9 +18,10 @@
 					<input required type="text" name="asset-label" ng-model="asset.label">
 				</div>
 			</unl-list-item-details>
-			<unl-list-item-details heading="Active">
+			<unl-list-item-details heading="Icon" details="JPEG, PNG, or GIF. Max size of 512x512px.">
 				<div class="tools">
-					<unl-toggle-button value="{{asset.active}}" bind-polymer></unl-toggle-button>
+					<img ng-show="asset.icon_url" src="{{asset.icon_url}}" class="img-small rounded" alt="{{asset.title}}" /> 
+					<unl-icon-button icon="file-upload" ng-file-select ng-file-change="upload($files)" multiple="false"></unl-icon-button>
 				</div>
 			</unl-list-item-details>
 			<unl-list-item-header>Available Services</unl-list-item-header>

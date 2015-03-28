@@ -22,12 +22,21 @@
       <span subhead>Add your first asset by hitting <core-icon icon="add"></core-icon> above</span>
     </unl-empty-content>
     <div class="content-container">
-      <div horizontal layout end-justified class="margin-bottom">
-        <unl-tooltip position="left" details="Create new asset"><unl-icon-button ng-click="go('/{{groupId}}/asset/new')" icon="add"></unl-icon-button></unl-tooltip>
+      <div horizontal layout end-justified gutters class="margin-bottom">
+        <div flex>
+          <label for="asset-filter" hidden>Find an asset</label>
+          <input name="asset-filter" ng-model="asset_search.$" placeholder="Find an asset...">
+        </div>
+        <div>
+          <unl-tooltip position="left" label="Create new asset"><unl-icon-button ng-click="go('/{{groupId}}/asset/new')" icon="add"></unl-icon-button></unl-tooltip>
+        </div>
       </div>
       <unl-list-group>
-        <unl-list-item-details class="animate-fade-left" ng-repeat="asset in assets | orderBy:'title'" heading="{{asset.title}}" link>
+        <unl-list-item-details class="animate-fade-left" ng-repeat="asset in assets | orderBy:'title' | filter:asset_search" heading="{{asset.title}}" link>
           <a ng-click="go('/{{groupId}}/asset/{{asset.$id}}')"><paper-ripple fit></paper-ripple></a>
+          <div class="tools">
+            <unl-toggle-button value="{{asset.active}}" ng-click="updateToggle(asset)" bind-polymer></unl-toggle-button>
+          </div>
         </unl-list-item-details>
       </unl-list-group>
     </div>
@@ -37,11 +46,17 @@
       <span subhead>Add your first service by hitting <core-icon icon="add"></core-icon> above</span>
     </unl-empty-content>
     <div class="content-container">
-      <div horizontal layout end-justified class="margin-bottom">
-        <unl-tooltip position="left" details="Create new service"><unl-icon-button ng-click="go('/{{groupId}}/service/new')" icon="add"></unl-icon-button></unl-tooltip>
+      <div horizontal layout end-justified gutters class="margin-bottom">
+        <div flex>
+          <label for="service-filter" hidden>Find a service</label>
+          <input name="service-filter" ng-model="service_search.$" placeholder="Find a service...">
+        </div>
+        <div>
+          <unl-tooltip position="left" label="Create new service"><unl-icon-button ng-click="go('/{{groupId}}/service/new')" icon="add"></unl-icon-button></unl-tooltip>
+        </div>
       </div>
       <unl-list-group>
-        <unl-list-item-details class="animate-fade-left" ng-repeat="service in services | orderBy:'title'" heading="{{service.title}}" details="{{service.description}}" link>
+        <unl-list-item-details class="animate-fade-left" ng-repeat="service in services | orderBy:'title' | filter:service_search" heading="{{service.title}}" details="{{service.description}}" link>
           <a ng-click="go('/{{groupId}}/service/{{service.$id}}')"><paper-ripple fit></paper-ripple></a>
         </unl-list-item-details>
       </unl-list-group>

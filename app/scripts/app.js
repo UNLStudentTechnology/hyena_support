@@ -16,7 +16,9 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.router',
-    'hyenaAngular'
+    'hyenaAngular',
+    'angularFileUpload',
+    'filereader'
     ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
     $stateProvider

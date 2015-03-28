@@ -21,7 +21,9 @@
     "unl-style": "~0.2.0",
     "unl-components": "~0.2.0",
     "hyena-angular": "~0.2.0",
-    "webcomponentsjs": "~0.5.5"
+    "webcomponentsjs": "~0.5.5",
+    "ng-file-upload": "~3.2.4",
+    "angular-filereader": "~1.0.4"
   },
   "devDependencies": {
     "angular-mocks": "^1.3.0",

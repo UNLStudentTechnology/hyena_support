@@ -8,10 +8,15 @@
  * Controller of the hyenaSupportApp
  */
 angular.module('hyenaSupportApp')
-  .controller('KioskCtrl', function ($scope, $rootScope, $stateParams, FirebaseGroupService, AssetService, ServiceService) {
+  .controller('KioskCtrl', function ($scope, $location, $rootScope, $stateParams, FirebaseGroupService, AssetService, ServiceService) {
+
     //Get and set the current group ID
-  	var groupId = $stateParams.groupId;
-  	$scope.groupId = $rootScope.currentGroupId = groupId;
+    var groupId = $stateParams.groupId;
+    $scope.groupId = $rootScope.currentGroupId = groupId;
+
+    //Make sure users are starting at the first step
+    if(angular.isUndefined($scope.active_asset))
+      $location.path(groupId+'/kiosk/choose');
 
   	//Get Group
   	$scope.group = null;

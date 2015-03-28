@@ -8,7 +8,7 @@
  * Controller of the hyenaSupportApp
  */
 angular.module('hyenaSupportApp')
-  .controller('AssetCtrl', function ($scope, $rootScope, $stateParams, AssetService, ServiceService, Notification) {
+  .controller('AssetCtrl', function ($scope, $rootScope, $stateParams, AssetService, ServiceService, Notification, FileReader) {
     //Get and set the current group ID
   	var groupId = $stateParams.groupId;
   	$scope.groupId = $rootScope.currentGroupId = groupId;
@@ -35,12 +35,11 @@ angular.module('hyenaSupportApp')
       }
     });
 
-    $scope.$watch('asset', function() {
-       console.log('hey, myVar has changed!');
-    }, true);
-
-    $scope.updateToggle = function(serviceId) {
-      console.log('Toggle', $scope.asset.services[serviceId]);
-      //$scope.asset.services[serviceId] = ($scope.asset.services[serviceId] > 0 ? "0" : "1"); 
+    $scope.upload = function (files) {
+      if (files && files.length) {
+        FileReader.readAsDataURL(files[0], $scope).then(function(response) {
+          $scope.asset.icon_url = response;
+        });
+      }
     };
   });

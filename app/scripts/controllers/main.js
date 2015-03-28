@@ -8,7 +8,7 @@
  * Controller of the hyenaSupportApp
  */
 angular.module('hyenaSupportApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $stateParams, FirebaseGroupService, AssetService, ServiceService) {
+  .controller('MainCtrl', function ($scope, $rootScope, $stateParams, $timeout, FirebaseGroupService, AssetService, ServiceService) {
     //Get the selected group from the route parameters and set it in the scope
     var groupId = $stateParams.groupId;
     $scope.groupId = $rootScope.currentGroupId = groupId;
@@ -24,4 +24,8 @@ angular.module('hyenaSupportApp')
       $scope.assets = AssetService.groupAssets(groupId, 10).$asArray();
       $scope.services = ServiceService.groupAssets(groupId, 10).$asArray();
     }
+
+    $scope.updateToggle = function(asset) {
+      $timeout(function(){ $scope.assets.$save(asset); }, 200);
+    };
   });

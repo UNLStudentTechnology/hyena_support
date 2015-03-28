@@ -19,7 +19,8 @@ angular.module('hyenaSupportApp')
     	created_at: moment().format(),
         group_id: parseInt(groupId),
         title: '',
-        active: 1
+        active: 1,
+        url: ''
     };
 
     /**
