@@ -18,6 +18,6 @@
         <footer>
         </footer>
     </div>
-    <div main vertical layout ui-view ng-class="pageAnimationClass">
+    <div main vertical layout ui-view ng-class="pageAnimationClass" ng-model-options="{ updateOn: 'keyup change click blur', debounce: { keyup: 100, click: 0, change: 0, blur: 0 } }">
     </div>
 </unl-layout>

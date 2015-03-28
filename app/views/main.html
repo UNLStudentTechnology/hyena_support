@@ -25,7 +25,7 @@
       <div horizontal layout end-justified gutters class="margin-bottom">
         <div flex>
           <label for="asset-filter" hidden>Find an asset</label>
-          <input name="asset-filter" ng-model="asset_search.$" placeholder="Find an asset...">
+          <input name="asset-filter" ng-model="asset_search.$" placeholder="Find an asset..." ng-model-options="{ debounce: { keyup: 0 } }">
         </div>
         <div>
           <unl-tooltip position="left" label="Create new asset"><unl-icon-button ng-click="go('/{{groupId}}/asset/new')" icon="add"></unl-icon-button></unl-tooltip>
@@ -49,7 +49,7 @@
       <div horizontal layout end-justified gutters class="margin-bottom">
         <div flex>
           <label for="service-filter" hidden>Find a service</label>
-          <input name="service-filter" ng-model="service_search.$" placeholder="Find a service...">
+          <input name="service-filter" ng-model="service_search.$" placeholder="Find a service..." ng-model-options="{ debounce: { keyup: 0 } }">
         </div>
         <div>
           <unl-tooltip position="left" label="Create new service"><unl-icon-button ng-click="go('/{{groupId}}/service/new')" icon="add"></unl-icon-button></unl-tooltip>
