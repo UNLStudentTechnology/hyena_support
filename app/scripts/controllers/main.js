@@ -8,7 +8,7 @@
  * Controller of the hyenaSupportApp
  */
 angular.module('hyenaSupportApp')
-  .controller('MainCtrl', function ($scope, $rootScope, $stateParams, $timeout, FirebaseGroupService, AssetService, ServiceService) {
+  .controller('MainCtrl', function ($scope, $rootScope, $stateParams, $timeout, $localStorage, FirebaseGroupService, AssetService, ServiceService) {
     //Get the selected group from the route parameters and set it in the scope
     var groupId = $stateParams.groupId;
     $scope.groupId = $rootScope.currentGroupId = groupId;
@@ -17,7 +17,11 @@ angular.module('hyenaSupportApp')
     if(angular.isDefined(groupId) && groupId !== "")
       FirebaseGroupService.existsOrAdd(groupId);
 
-    $scope.selectedTab = 0;
+    $scope.selectedTab = $localStorage.hyenaSupportApp_mainTab || 0;
+
+    $scope.$watch('selectedTab', function(value) {
+      $localStorage.hyenaSupportApp_mainTab = parseInt(value);
+    });
 
   	//Get Assets and Services
     if(groupId !== "") {
