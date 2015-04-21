@@ -28,7 +28,7 @@ angular.module('hyenaSupportApp')
 		* @param  int limit   Number of items to return
 		* @return promise
 		*/
-		groupAssets: function getGroupAssets(groupId, limit) {
+		groupServices: function getGroupServices(groupId, limit) {
 			limit = limit || 20;
 			groupId = parseInt(groupId);
 			var services = serviceRef.child('services').orderByChild("group_id").equalTo(groupId).limitToFirst(limit);
@@ -40,6 +40,10 @@ angular.module('hyenaSupportApp')
 	          $firebase(serviceRef.child('/groups/'+groupId+'/services')).$set(response.key(), true);
 	          return response;
 	        });
+    	},
+    	remove: function removeService(serviceId) {
+    		serviceId = serviceId.trim();
+			return $firebase(serviceRef.child('/services/'+serviceId)).$remove();
     	}
     };
 

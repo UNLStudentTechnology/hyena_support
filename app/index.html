@@ -52,6 +52,18 @@
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
+    <!-- Loading Page -->
+    <unl-layout-splash ng-hide="appLoaded">
+        <div heading>
+            <h2>
+                Loading Campus Talk
+                <span class="subhead">Support</span>
+            </h2>
+        </div>
+        <div left>Student Technology</div>
+        <div center>go.unl.edu/campustalk</div>
+        <div right>University of Nebraska-Lincoln</div>
+    </unl-layout-splash>
     <!-- Application Content -->
     <div ui-view=""></div>
     <!-- End Application Content -->

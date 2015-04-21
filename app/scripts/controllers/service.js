@@ -26,4 +26,26 @@ angular.module('hyenaSupportApp')
         });
       }
     };
+
+    $scope.removeImage = function() {
+      $scope.service.icon_url = "";
+    };
+
+    $scope.showRemoveService = function() {
+      Notification.showModal('Remove Service', '#modal-service-remove');
+    };
+
+    $scope.removeService = function() {
+      ServiceService.remove(serviceId).then(function() {
+        Notification.hideModal();
+        Notification.show('Your service has been removed successfully!', 'success');
+
+        //Navigate back to services
+        $scope.go('/'+groupId, 'animate-slide-left');
+      }, function(error) {
+        Notification.hideModal();
+        console.log('Remove service error:', error);
+        Notification.show(error.message, 'error');
+      });
+    };
   });

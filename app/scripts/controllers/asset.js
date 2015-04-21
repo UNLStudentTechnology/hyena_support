@@ -20,14 +20,13 @@ angular.module('hyenaSupportApp')
   	asset.$bindTo($scope, 'asset');
 
     asset.$loaded().then(function(response) {
-      console.log($scope.asset);
       if(!angular.isDefined($scope.asset.services)) {
         $scope.asset.services = {};
       }
     });
 
     //Get services
-    $scope.services = ServiceService.groupAssets(groupId, 10).$asArray();
+    $scope.services = ServiceService.groupServices(groupId, 10).$asArray();
     $scope.services.$loaded().then(function(response) {
       for (var i = 0; i < $scope.services.length; i++) {
         if(angular.isUndefined($scope.asset.services[$scope.services[i].$id]))
@@ -41,5 +40,27 @@ angular.module('hyenaSupportApp')
           $scope.asset.icon_url = response;
         });
       }
+    };
+
+    $scope.removeImage = function() {
+      $scope.asset.icon_url = "";
+    };
+
+    $scope.showRemoveAsset = function() {
+      Notification.showModal('Remove Asset', '#modal-asset-remove');
+    };
+
+    $scope.removeAsset = function() {
+      AssetService.remove(assetId).then(function() {
+        Notification.hideModal();
+        Notification.show('Your asset has been removed successfully!', 'success');
+
+        //Navigate back to assets
+        $scope.go('/'+groupId, 'animate-slide-left');
+      }, function(error) {
+        Notification.hideModal();
+        console.log('Remove asset error:', error);
+        Notification.show(error.message, 'error');
+      });
     };
   });

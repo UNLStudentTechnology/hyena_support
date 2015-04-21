@@ -26,6 +26,7 @@
 				<div class="tools">
 					<img ng-show="service.icon_url" src="{{service.icon_url}}" class="img-small rounded" alt="{{service.title}}" /> 
 					<unl-icon-button icon="file-upload" ng-file-select ng-file-change="upload($files)" multiple="false"></unl-icon-button>
+					<unl-icon-button icon="close" ng-click="removeImage()" ng-show="service.icon_url"></unl-icon-button>
 				</div>
 			</unl-list-item-details>
 			<unl-list-item-details heading="URL to Service" details="Use the :asset flag to send the asset's name to service.">
@@ -36,4 +37,8 @@
 		</unl-list-group>
 	</form>
 	<!-- End Service Settings -->
+	<button class="button-error margin-bottom" ng-click="showRemoveService()">Remove Service</button>
 </div>
+
+<!-- Modals -->
+<div id="modal-service-remove" hidden ng-include src="'views/partials/modal-remove-service.html'"></div>

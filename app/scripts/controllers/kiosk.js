@@ -27,8 +27,8 @@ angular.module('hyenaSupportApp')
 
   	//Get Assets
     if(groupId !== "") {
-      $scope.assets = AssetService.groupAssets(groupId, 10).$asArray();
-      $scope.services = ServiceService.groupAssets(groupId, 10).$asArray();
+      $scope.assets = AssetService.groupAssets(groupId, 30).$asArray();
+      $scope.services = ServiceService.groupServices(groupId, 30).$asArray();
     }
 
     //Form Data

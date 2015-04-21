@@ -40,6 +40,10 @@ angular.module('hyenaSupportApp')
 	          $firebase(assetRef.child('/groups/'+groupId+'/assets')).$set(response.key(), true);
 	          return response;
 	        });
+    	},
+    	remove: function removeService(assetId) {
+    		assetId = assetId.trim();
+			return $firebase(assetRef.child('/assets/'+assetId)).$remove();
     	}
     };
 
