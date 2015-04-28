@@ -8,12 +8,16 @@
  * Controller of the hyenaSupportApp
  */
 angular.module('hyenaSupportApp')
-  .controller('AssetCtrl', function ($scope, $rootScope, $stateParams, AssetService, ServiceService, Notification, FileReader) {
+  .controller('AssetCtrl', function ($scope, $rootScope, $stateParams, AssetService, ServiceService, GroupService, Notification, FileReader) {
+    $scope.selectedTab = 0;
     //Get and set the current group ID
   	var groupId = $stateParams.groupId;
   	$scope.groupId = $rootScope.currentGroupId = groupId;
   	//Get asset id
   	var assetId = $scope.assetId = $stateParams.assetId;
+    //Initialize sort variables
+    $scope.userSortDirection = false;
+    $scope.userSortField = "first_name";
 
   	//Get asset
   	var asset = AssetService.get(assetId).$asObject();
@@ -23,6 +27,14 @@ angular.module('hyenaSupportApp')
       if(!angular.isDefined($scope.asset.services)) {
         $scope.asset.services = {};
       }
+    });
+
+    //Get the requested group by ID
+    GroupService.get(groupId, 'users').then(function(response) {
+      $scope.group = response.data;
+      $scope.members = response.data.users;
+    }, function(error) {
+      Notification.show('Sorry! Unable to load your group.', 'error');
     });
 
     //Get services

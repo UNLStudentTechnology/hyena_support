@@ -18,6 +18,7 @@ angular
     'ui.router',
     'hyenaAngular',
     'angularFileUpload',
+    'angularMoment',
     'filereader'
     ])
   .config(function ($stateProvider, $urlRouterProvider, $locationProvider) {
@@ -61,6 +62,11 @@ angular
         templateUrl: 'views/service.html',
         controller: 'ServiceCtrl'
       })
+      .state('unl-layout.staff', {
+        url: '/:groupId/staff/:staffId',
+        templateUrl: 'views/staff.html',
+        controller: 'StaffCtrl'
+      })
       //Kiosk
       .state('unl-layout-kiosk.support_kiosk', {
         url: '/:groupId/kiosk',
@@ -74,6 +80,14 @@ angular
       .state('unl-layout-kiosk.support_kiosk.method', {
         url: '/method',
         templateUrl: 'views/kiosk/choose_method.html'
+      })
+      .state('unl-layout-kiosk.support_kiosk.signin', {
+        url: '/signin',
+        templateUrl: 'views/kiosk/signin.html'
+      })
+      .state('unl-layout-kiosk.support_kiosk.appointment', {
+        url: '/appointment',
+        templateUrl: 'views/kiosk/appointment.html'
       });
       //End Kiosks
       

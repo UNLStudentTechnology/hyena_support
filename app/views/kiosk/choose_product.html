@@ -3,6 +3,6 @@
 </div>
 <unl-list-group horizontal layout wrap gutters class="no-margin">
 	<unl-list-item-boxed  class="animate-fade-in" style="width:30%;"  ng-if="asset.active > 0" flex auto heading="{{asset.title}}" image="{{asset.icon_url}}" detail="{{asset.label}}" ng-repeat="asset in assets | orderBy:'title'" link>
-		<a ng-click="go('/{{groupId}}/kiosk/method', 'animate-fade-right');setActiveAsset(asset)" title="Select this product"><paper-ripple fit></paper-ripple></a>
+		<a ng-click="setActiveAsset(asset)" ng-href="/{{groupId}}/kiosk/method" title="Select this product"><paper-ripple fit></paper-ripple></a>
 	</unl-list-item-boxed>
 </unl-list-group>

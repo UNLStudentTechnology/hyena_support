@@ -1,0 +1,10 @@
+<div medium>
+	<unl-toolbar><span id="modal-title" flex class="align-center">Confirm appointment</span></unl-toolbar>
+	<div class="content-container align-center">
+		<span>{{processData.selectedAppointment.timestamp | amCalendar}}</span>
+	</div>
+	<div class="modal-buttons no-frame">
+		<button type="button" class="button-success" ng-click="confirmAppointment()">Confirm</button>
+		<button type="button" class="button-secondary" ng-click="closeModal()">No Thanks</button>
+	</div>
+</div>

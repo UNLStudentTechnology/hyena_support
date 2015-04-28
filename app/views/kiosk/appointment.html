@@ -1,0 +1,8 @@
+<div class="icon-header">
+	<h2 class="align-center">Make an appointment<span class="subhead">When do you want to come in?</span></h2>
+</div>
+<unl-progress indeterminate ng-hide="processData.schedule" class="animate-fade margin-bottom"></unl-progress>
+<availability-calendar class="animate-fade" ng-show="processData.schedule" asset="processData.defaultAsset" bookings="bookings" schedule="processData.schedule" on-change="addBooking" type="compare" any-available="true"></availability-calendar>
+
+<!-- Modals -->
+<div id="modal-confirm-appointment" hidden ng-include src="'views/partials/modal-confirm-appointment.html'"></div>

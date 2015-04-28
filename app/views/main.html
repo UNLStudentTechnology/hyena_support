@@ -13,22 +13,54 @@
 </div>
 <!-- End Group List -->
 <unl-tabs bind-polymer item="{{selectedTab}}" ng-show="groupId">
-  <unl-tab>Assets</unl-tab>
+  <unl-tab>Staff</unl-tab>
+  <unl-tab>Topics</unl-tab>
   <unl-tab>Services</unl-tab>
 </unl-tabs>
 <unl-pages item="{{selectedTab}}" flex ng-show="groupId">
+  <unl-panel filt>
+    <!-- Members -->
+    <unl-empty-content fit ng-hide="members.length > 0" text="No members yet">
+      <span subhead>Add your first member in the groups app</span>
+    </unl-empty-content>
+    <div class="content-container">
+      <div horizontal layout gutters class="margin-bottom">
+        <div flex class="animate-fade">
+          <label for="member-filter" hidden>Find a staff member</label>
+          <input name="member-filter" ng-model="member_search.$" placeholder="Find a staff member">
+        </div>
+        <div>
+          <unl-tooltip position="bottom" label="Change sort order"><unl-icon-button ng-click="toggleSort()" icon="swap-vert">{{ userSortDirection?'Z-A':'A-Z' }}</unl-icon-button></unl-tooltip>
+          <unl-tooltip position="bottom" label="Change sort field">
+            <select name="userFieldSelect" ng-model="userSortField">
+              <option value="first_name">First Name</option>
+              <option value="last_name">Last Name</option>
+              <option value="uni_major">Major</option>
+              <option value="uni_year">Year</option>
+              <option value="pivot.created_at">Join Date</option>
+            </select>
+          </unl-tooltip>
+        </div>
+      </div>
+      <unl-list-group ng-show="members.length > 0">
+        <unl-list-item-details user user-model="member" class="animate-fade-left" image="{{ member.profile_image }}" heading="{{ member.first_name ? member.first_name +' '+ member.last_name : member }}" details="{{showUserDetails(member)}}" ng-repeat="member in members | orderBy:userSortField:userSortDirection | filter:member_search" link>
+          <a ng-click="go('/{{groupId}}/staff/{{member.uni_auth}}')"><paper-ripple fit></paper-ripple></a>
+        </unl-list-item-details>
+      </unl-list-group>
+    </div>
+  </unl-panel>
   <unl-panel fit>
-    <unl-empty-content ng-hide="assets.length > 0" text="No Assets Yet" fit>
-      <span subhead>Add your first asset by hitting <core-icon icon="add"></core-icon> above</span>
+    <unl-empty-content ng-hide="assets.length > 0" text="No Topics Yet" fit>
+      <span subhead>Add your first topics by hitting <core-icon icon="add"></core-icon> above</span>
     </unl-empty-content>
     <div class="content-container">
       <div horizontal layout end-justified gutters class="margin-bottom">
         <div flex>
-          <label for="asset-filter" hidden>Find an asset</label>
-          <input name="asset-filter" ng-model="asset_search.$" placeholder="Find an asset" ng-model-options="{ debounce: { keyup: 0 } }">
+          <label for="asset-filter" hidden>Find a topic</label>
+          <input name="asset-filter" ng-model="asset_search.$" placeholder="Find a topic" ng-model-options="{ debounce: { keyup: 0 } }">
         </div>
         <div>
-          <unl-tooltip position="left" label="Create new asset"><unl-icon-button ng-click="go('/{{groupId}}/asset/new')" icon="add"></unl-icon-button></unl-tooltip>
+          <unl-tooltip position="left" label="Create new topics"><unl-icon-button ng-click="go('/{{groupId}}/asset/new')" icon="add"></unl-icon-button></unl-tooltip>
         </div>
       </div>
       <unl-list-group>
