@@ -1,9 +1,9 @@
 <unl-toolbar>
 	<a ng-click="go('/{{groupId}}', 'animate-slide-left')" title="Back to main"><unl-icon-button icon="arrow-back"></unl-icon-button></a>
-	<span flex class="align-center">{{ asset.title || 'New Asset' }}</span>
+	<span flex class="align-center">{{ asset.title || 'New Topic' }}</span>
 </unl-toolbar>
 <div class="content-container">
-	<!-- Asset Settings -->
+	<!-- Topic Settings -->
 	<form name="newAssetForm" ng-submit="createAsset()">
 		<unl-list-group>
 			<unl-list-item-header>General</unl-list-item-header>
@@ -23,7 +23,7 @@
 				</div>
 			</unl-list-item-details>
 		</unl-list-group>
-		<button type="submit" ng-disabled="newAssetForm.$invalid">Create asset</button>
+		<button type="submit" ng-disabled="newAssetForm.$invalid">Create topic</button>
 	</form>
-	<!-- End Asset Settings -->
+	<!-- End Topic Settings -->
 </div>

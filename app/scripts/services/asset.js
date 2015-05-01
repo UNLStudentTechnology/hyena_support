@@ -29,7 +29,7 @@ angular.module('hyenaSupportApp')
 		* @return promise
 		*/
 		groupAssets: function getGroupAssets(groupId, limit) {
-			limit = limit || 20;
+			limit = limit || 50;
 			groupId = parseInt(groupId);
 			var assets = assetRef.child('assets').orderByChild("group_id").equalTo(groupId).limitToFirst(limit);
 			return $firebase(assets);

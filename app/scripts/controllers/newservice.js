@@ -20,14 +20,28 @@ angular.module('hyenaSupportApp')
         group_id: parseInt(groupId),
         title: '',
         active: 1,
-        url: ''
+        url: '',
+        slot_size: 15,
+        locations: []
+    };
+
+    $scope.addServiceLocation = function() {
+        var location = {
+            created_at: moment().format(),
+            title: $scope.newLocationTitle
+        };
+
+        $scope.service.locations.push(location);
+        $scope.newLocationTitle = "";
     };
 
     /**
      * Creates a new service on the Firebase
      */
     $scope.createService = function() {
-    	ServiceService.add($scope.service, groupId).then(function(response) {
+        var service = angular.copy($scope.service);
+
+    	ServiceService.add(service, groupId).then(function(response) {
     		console.log(response);
     		var serviceId = response.key();
     		//Redirect and notify

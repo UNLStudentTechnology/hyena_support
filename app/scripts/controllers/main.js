@@ -28,8 +28,8 @@ angular.module('hyenaSupportApp')
 
   	//Get Assets and Services
     if(groupId !== "") {
-      $scope.assets = AssetService.groupAssets(groupId, 30).$asArray();
-      $scope.services = ServiceService.groupServices(groupId, 30).$asArray();
+      $scope.assets = AssetService.groupAssets(groupId).$asArray();
+      $scope.services = ServiceService.groupServices(groupId).$asArray();
 
       //Get the requested group by ID
       GroupService.get(groupId, 'users').then(function(response) {

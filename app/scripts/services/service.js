@@ -29,7 +29,7 @@ angular.module('hyenaSupportApp')
 		* @return promise
 		*/
 		groupServices: function getGroupServices(groupId, limit) {
-			limit = limit || 20;
+			limit = limit || 50;
 			groupId = parseInt(groupId);
 			var services = serviceRef.child('services').orderByChild("group_id").equalTo(groupId).limitToFirst(limit);
 			return $firebase(services);
