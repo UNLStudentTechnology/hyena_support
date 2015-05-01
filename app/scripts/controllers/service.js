@@ -1,3 +1,4 @@
+/* global moment*/
 'use strict';
 
 /**
@@ -9,6 +10,7 @@
  */
 angular.module('hyenaSupportApp')
   .controller('ServiceCtrl', function ($scope, $rootScope, $stateParams, ServiceService, Notification, FileReader) {
+    $scope.newLocationTitle = "";
     //Get and set the current group ID
   	var groupId = $stateParams.groupId;
   	$scope.groupId = $rootScope.currentGroupId = groupId;
@@ -27,12 +29,28 @@ angular.module('hyenaSupportApp')
       }
     };
 
+    $scope.addServiceLocation = function() {
+      var location = {
+        created_at: moment().format(),
+        title: $scope.newLocationTitle
+      };
+
+      ServiceService.addLocation(serviceId, location).then(function(response) {
+        $scope.newLocationTitle = "";
+      });
+    };
+
     $scope.removeImage = function() {
       $scope.service.icon_url = "";
     };
 
     $scope.showRemoveService = function() {
       Notification.showModal('Remove Service', '#modal-service-remove');
+    };
+
+    $scope.removeServiceLocation = function(key) {
+      delete $scope.service.locations[key];
+      Notification.show('Location removed successfully!', 'success');
     };
 
     $scope.removeService = function() {

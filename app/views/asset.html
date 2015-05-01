@@ -54,7 +54,7 @@
 				<div>
 					<unl-tooltip position="bottom" label="Change sort order"><unl-icon-button ng-click="toggleSort()" icon="swap-vert">{{ userSortDirection?'Z-A':'A-Z' }}</unl-icon-button></unl-tooltip>
 					<unl-tooltip position="bottom" label="Change sort field">
-					<select name="userFieldSelect" ng-model="userSortField">
+					<select name="userFieldSelect" ng-model="userSortField" class="input-clear">
 					  <option value="first_name">First Name</option>
 					  <option value="last_name">Last Name</option>
 					  <option value="uni_major">Major</option>

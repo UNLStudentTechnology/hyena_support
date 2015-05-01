@@ -1,0 +1,13 @@
+<div horizontal layout ng-show="asset" ng-class="type">
+	<div flex class="align-center day-column" ng-repeat="day in range(startDay, endDay)" ng-hide="asset.weekend == 0 && moment().dayOfYear(day).day()%6==0">
+		<span class="day-heading">{{moment().dayOfYear(day).format('ddd DD')}}</span>
+		<div class="align-center booking-slot" ng-class="{'panel-success': ((anyAvailable && slot !== asset.num_assets) || (!anyAvailable && !slot)) && !bookings[day][convertKeyToNum(hour)]}" ng-repeat="(hour, slot) in schedule[moment().dayOfYear(day).day()] track by $index" ng-if="convertKeyToNum(hour) >= hide_before && convertKeyToNum(hour) <= hide_after">
+			<input type="checkbox" id="{{ day }}:{{ convertKeyToNum(hour) }}" ng-change="doBooking(day, hour)" ng-disabled="(anyAvailable && slot == asset.num_assets) || (!anyAvailable && slot) || bookings[day][convertKeyToNum(hour)]" ng-model="bookings[day][convertKeyToNum(hour)]">
+			<label for="{{ day }}:{{ convertKeyToNum(hour) }}">
+				{{hourToMinutes(convertKeyToNum(hour)).format('h:mm A')}}
+				<!-- <span ng-if="slot">Booked</span>
+				<span ng-if="!slot">Available</span> -->
+			</label>
+		</div>
+	</div>
+</div>

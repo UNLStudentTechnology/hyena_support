@@ -15,12 +15,12 @@ angular.module('hyenaSupportApp')
     var ServiceService =  {
 		/**
 		* Gets a specific asset
-		* @param  string assetId
+		* @param  string serviceId
 		* @return promise
 		*/
-		get: function getAsset(assetId) {
-			assetId = assetId.trim();
-				return $firebase(serviceRef.child('/services/'+assetId));
+		get: function getAsset(serviceId) {
+			serviceId = serviceId.trim();
+				return $firebase(serviceRef.child('/services/'+serviceId));
 		},
 		/**
 		* Get all services associated with a group
@@ -40,6 +40,9 @@ angular.module('hyenaSupportApp')
 	          $firebase(serviceRef.child('/groups/'+groupId+'/services')).$set(response.key(), true);
 	          return response;
 	        });
+    	},
+    	addLocation: function addLocation(serviceId, location) {
+    		return $firebase(serviceRef.child('services/'+serviceId+'/locations')).$push(location);
     	},
     	remove: function removeService(serviceId) {
     		serviceId = serviceId.trim();

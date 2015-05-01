@@ -1,10 +1,10 @@
 <div class="icon-header">
 	<h2 class="align-center">How would you like to get help?<span class="subhead">Choose a support option for {{processData.active_asset.title}}.</span></h2>
 </div>
-<unl-list-group horizontal layout wrap gutters class="no-margin">
-	<unl-list-item-boxed flex auto heading="{{service.friendly_title}}" image="{{service.image_url}}" detail="{{service.description}}" ng-repeat="service in services" link class="animate-fade-in auto-height" ng-show="processData.active_asset.services[service.$id] > 0">
-		<a ng-if="service.type == 1" ng-href="{{ setServiceUrl(service.url) }}" title="Select this service"><paper-ripple fit></paper-ripple></a>
-		<a ng-if="service.type == 0" ng-href="/{{groupId}}/kiosk/signin" title="Select this service"><paper-ripple fit></paper-ripple></a>
+<unl-list-group class="no-margin">
+	<unl-list-item-boxed heading="{{service.friendly_title}}" image="{{service.image_url}}" detail="{{service.description}}" ng-repeat="service in services" link class="animate-fade-in auto-height" ng-show="processData.active_asset.services[service.$id] > 0">
+		<a ng-if="service.type == 1" ng-click="setActiveService(service)" ng-href="{{ setServiceUrl(service.url) }}" title="Select this service"><paper-ripple fit></paper-ripple></a>
+		<a ng-if="service.type == 0" ng-click="setActiveService(service)" ng-href="/{{groupId}}/kiosk/signin" title="Select this service"><paper-ripple fit></paper-ripple></a>
 	</unl-list-item-boxed>
 </unl-list-group>
 <button class="button-clear button-block" ng-click="startOver()">Start Over</button>

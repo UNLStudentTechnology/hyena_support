@@ -9,18 +9,24 @@
  * Controller of the hyenaSupportApp
  */
 angular.module('hyenaSupportApp')
-  .controller('KioskCtrl', function ($scope, $location, $rootScope, $stateParams, $filter, GroupService, AssetService, ServiceService, UserService, ReservationService, Notification) {
+  .controller('KioskCtrl', function ($scope, $location, $rootScope, $stateParams, $filter, GroupService, AssetService, ServiceService, UserService, ReservationService, AppointmentService, Notification) {
     var defaultData = {
       active_assest: null,
+      active_service: null,
       authUser: null,
       defaultAsset: null,
       kioskNuid: '',
       loadingContent: false,
       schedule: null,
-      selectedAppointment: null
+      selectedAppointment: null,
+      selectedLocation: -1,
+      appointment_hour: -1,
+      startDay: moment().dayOfYear(),
+      availableStaff: [],
+      selectedStaff: 0
     };
 
-    $scope.moment = moment();
+    $scope.moment = moment;
     $scope.processData = angular.copy(defaultData);
 
     //Get and set the current group ID
@@ -48,18 +54,38 @@ angular.module('hyenaSupportApp')
       var assets = [];
       //Filter the list of users
       for (var i = 0; i < $scope.group.users.length; i++) {
-        if($scope.processData.active_asset.users[$scope.group.users[i].uni_auth] > 0)
+        if($scope.processData.active_asset.users[$scope.group.users[i].uni_auth] > 0) {
           assets.push($scope.group.users[i].uni_auth);
+          $scope.processData.availableStaff.push($scope.group.users[i]);
+        }
       }
 
       //Asset display settings
       $scope.processData.defaultAsset = {
         hide_hour_after: "0900pm",
         hide_hour_before: "0800am",
-        slot_size: 15,
+        slot_size: $scope.processData.active_service.slot_size || 15,
         num_assets: assets.length,
         weekend: 0
       };
+
+      //Get the assets needed for the copmarison
+      ReservationService.assets(assets, groupId).then(function(promises) {
+        //Run the comparison
+        $scope.processData.schedule = ReservationService.compareAvailability(promises, $scope.processData.defaultAsset.slot_size);
+      });
+    };
+
+    $scope.changeSchedule = function() {
+      var assets = [];
+      if($scope.processData.selectedStaff != "0") {
+        assets.push($scope.processData.selectedStaff);
+      }
+      else {
+        for (var i = 0; i < $scope.processData.availableStaff.length; i++) {
+         assets.push($scope.processData.availableStaff[i].uni_auth);
+        }
+      }
 
       //Get the assets needed for the copmarison
       ReservationService.assets(assets, groupId).then(function(promises) {
@@ -73,14 +99,31 @@ angular.module('hyenaSupportApp')
       Notification.showModal('Confirm appointment', '#modal-confirm-appointment');
 
       $scope.processData.selectedAppointment =  {
+        created_at: moment().format(),
         day: day,
         hour: hour,
-        timestamp: moment().dayOfYear(day).startOf('day').minutes(hour*60)
+        user: $scope.processData.authUser.uni_auth,
+        topic: $scope.processData.active_asset.$id,
+        service: $scope.processData.active_service.$id,
+        details: $scope.processData.authUser.appointment_details || "",
+        timestamp: moment().dayOfYear(day).startOf('day').minutes(hour*60).format()
       };
     };
 
     $scope.confirmAppointment = function() {
+      var appointment = $scope.processData.selectedAppointment;
 
+      if($scope.processData.selectedLocation != -1)
+        appointment.location = $scope.processData.selectedLocation;
+
+      AppointmentService.add(appointment, groupId).then(function(response) {
+        $scope.closeModal();
+        $scope.startOver();
+        Notification.show('Your appointment has been confirmed.', 'success');
+      }, function(error) {
+        console.log('Create appointment error', error);
+        Notification.show('There was an error confirming your appointment.', 'error');
+      });
     };
 
     /**
@@ -89,6 +132,10 @@ angular.module('hyenaSupportApp')
      */
     $scope.setActiveAsset = function(assetObject) {
       $scope.processData.active_asset = assetObject;
+    };
+
+    $scope.setActiveService = function(serviceObject) {
+      $scope.processData.active_service = serviceObject;
     };
 
     $scope.setServiceUrl = function(serviceUrl) {

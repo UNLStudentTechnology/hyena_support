@@ -1,5 +1,5 @@
 <div horizontal layout ng-show="asset" ng-class="type">
-	<div flex class="align-center" ng-repeat="day in range(startDay, endDay)">
+	<div flex class="align-center day-column" ng-repeat="day in range(startDay, endDay)">
 		<span class="day-heading">{{moment().dayOfYear(day).format('ddd DD')}}</span>
 		<div class="align-center booking-slot" ng-class="{'panel-success': !slot && !bookings[day][convertKeyToNum(hour)]}" ng-repeat="(hour, slot) in schedule[moment().dayOfYear(day).day()] track by $index" ng-if="convertKeyToNum(hour) >= hide_before && convertKeyToNum(hour) <= hide_after">
 			<input type="checkbox" id="{{ day }}:{{ convertKeyToNum(hour) }}-availability" ng-if="typeAvailability" ng-model="schedule[moment().dayOfYear(day).day()][hour]">

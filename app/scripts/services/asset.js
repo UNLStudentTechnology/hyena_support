@@ -9,7 +9,7 @@
  * Service in the hyenaGuestbooksApp.
  */
 angular.module('hyenaSupportApp')
-  .service('AssetService', function ($firebase, $q, AppFirebase, UserService) {
+  .service('AssetService', function ($firebase, $q, AppFirebase) {
     var assetRef = AppFirebase.getRef();
     
     var AssetService =  {
