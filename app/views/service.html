@@ -65,10 +65,10 @@
 					</div>
 				</unl-list-item-details>
 				<unl-list-item>
-					<div horizontal layout>
+					<form name="serviceLocationAdd" ng-submit="addServiceLocation()" horizontal layout>
 						<input type="text" name="new-location" class="no-margin" ng-model="newLocationTitle" flex start placeholder="Location Title">
-						<button ng-click="addServiceLocation()">Add</button>
-					</div>
+						<button type="submit">Add</button>
+					</form>
 				</unl-list-item>
 			</unl-list-group>
 		</unl-card>

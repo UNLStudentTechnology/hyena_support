@@ -9,7 +9,7 @@
  * Controller of the hyenaSupportApp
  */
 angular.module('hyenaSupportApp')
-  .controller('NewServiceCtrl', function ($scope, $rootScope, $stateParams, ServiceService, Notification) {
+  .controller('NewServiceCtrl', function ($scope, $rootScope, $stateParams, ServiceService, Notification, FileReader) {
      //Get the selected group from the route parameters and set it in the scope
     var groupId = $stateParams.groupId;
     $scope.groupId = $rootScope.currentGroupId = groupId;
@@ -33,6 +33,18 @@ angular.module('hyenaSupportApp')
 
         $scope.service.locations.push(location);
         $scope.newLocationTitle = "";
+    };
+
+    $scope.upload = function (files) {
+      if (files && files.length) {
+        FileReader.readAsDataURL(files[0], $scope).then(function(response) {
+          $scope.service.icon_url = response;
+        });
+      }
+    };
+
+    $scope.removeImage = function() {
+      $scope.service.icon_url = "";
     };
 
     /**

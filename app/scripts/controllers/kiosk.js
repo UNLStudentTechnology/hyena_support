@@ -9,7 +9,7 @@
  * Controller of the hyenaSupportApp
  */
 angular.module('hyenaSupportApp')
-  .controller('KioskCtrl', function ($scope, $location, $rootScope, $stateParams, $filter, GroupService, AssetService, ServiceService, UserService, ReservationService, AppointmentService, Notification) {
+  .controller('KioskCtrl', function ($scope, $location, $rootScope, $stateParams, $filter, GroupService, AssetService, ServiceService, UserService, ReservationService, AppointmentService, EmailService, Notification) {
     var defaultData = {
       active_assest: null,
       active_service: null,
@@ -19,7 +19,7 @@ angular.module('hyenaSupportApp')
       loadingContent: false,
       schedule: null,
       selectedAppointment: null,
-      selectedLocation: -1,
+      selectedLocation: null,
       appointment_hour: -1,
       startDay: moment().dayOfYear(),
       availableStaff: [],
@@ -41,7 +41,7 @@ angular.module('hyenaSupportApp')
   	$scope.group = null;
   	GroupService.get(groupId, 'users').then(function(response) {
   		$scope.group = response.data;
-  		console.log(response);
+  		//console.log(response);
   	});
 
   	//Get Assets
@@ -71,6 +71,7 @@ angular.module('hyenaSupportApp')
 
       //Get the assets needed for the copmarison
       ReservationService.assets(assets, groupId).then(function(promises) {
+        console.log('Promises',promises);
         //Run the comparison
         $scope.processData.schedule = ReservationService.compareAvailability(promises, $scope.processData.defaultAsset.slot_size);
       });
@@ -89,6 +90,7 @@ angular.module('hyenaSupportApp')
 
       //Get the assets needed for the copmarison
       ReservationService.assets(assets, groupId).then(function(promises) {
+        console.log('Promises', promises);
         //Run the comparison
         $scope.processData.schedule = ReservationService.compareAvailability(promises, $scope.processData.defaultAsset.slot_size);
       });
@@ -119,7 +121,20 @@ angular.module('hyenaSupportApp')
       AppointmentService.add(appointment, groupId).then(function(response) {
         $scope.closeModal();
         $scope.startOver();
-        Notification.show('Your appointment has been confirmed.', 'success');
+        Notification.show('Your appointment has been confirmed!', 'success');
+
+        EmailService.send(
+          $scope.processData.authUser.email, //To
+          $scope.processData.authUser.first_name +' '+$scope.processData.authUser.last_name, //To Name 
+          $scope.processData.authUser.first_name+', here are your appointment details.', //Subject
+          $scope.processData.messageToUser, //Content
+          groupId
+        ).then(function(response) {
+          //Notification.show('Your message was sent successfully.', 'success');
+        }, function(error) {
+          Notification.show(error.message, 'error');
+          console.log('Unable to send email', error);
+        });
       }, function(error) {
         console.log('Create appointment error', error);
         Notification.show('There was an error confirming your appointment.', 'error');
@@ -158,8 +173,10 @@ angular.module('hyenaSupportApp')
         console.log(error);
         if(angular.isDefined(error.message))
           Notification.show(error.message, 'error');
-        else
+        else {
+          $scope.processData.kioskNuid = "";
           Notification.show('Sorry! Unable to find a user with that NUID.', 'error');
+        }
         //Hide loaders
         $scope.processData.loadingContent = false;
       });

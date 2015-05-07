@@ -109,6 +109,6 @@ angular
   })
   .constant('FBURL', 'https://hyena-support.firebaseio.com/')
   .constant('APIKEY', 'NTM5NTc4Y2Y3MGZhMzA0NTJlNTQwZDQ5')
-  .constant('APIPATH', 'http://st-studio.unl.edu/hyena_platform/public/api/1.0/')
+  .constant('APIPATH', 'https://itsgethelp.unl.edu/public/api/1.0/')
   .constant('PLATFORM_ROOT', 'http://st-studio.unl.edu/hyena_platform/public/')
   .constant('AUTH_SCOPE', 'groups');

@@ -1,7 +1,10 @@
 <div horizontal layout center-justified>
-	<div nine>
-		<div class="icon-header">
+	<div six>
+		<div class="icon-header" ng-hide="processData.authUser">
 			<h2 class="align-center">Sign In <span class="subhead">Enter your NUID below</span></h2>
+		</div>
+		<div class="icon-header" ng-show="processData.authUser">
+			<h2 class="align-center">Hey, {{processData.authUser.first_name}} <span class="subhead">Tell us a little more about how we can help you.</span></h2>
 		</div>
 		<unl-progress indeterminate ng-show="processData.loadingContent" class="animate-fade margin-bottom"></unl-progress>
 		<form name="boardSigninForm">
@@ -9,18 +12,20 @@
 				<input start flex placeholder="NUID" autofocus required ng-model="processData.kioskNuid" type="password" pattern="[0-9]*" name="kiosk-nuid">
 				<button ng-click="validateAndGet()" ng-disabled="boardSigninForm.kiosk-nuid.$invalid">Sign In</button>
 			</div>
+		</form>
+		<form name="moreInformationForm">
 			<div ng-show="processData.authUser" class="animate-fade-left">
-				<div horizontal layout>
+<!-- 				<div horizontal layout>
 					<label for="kiosk-first-name" hidden>First Name</label>
 					<input flex six placeholder="First Name" ng-model="processData.authUser.first_name" type="text" name="kiosk-first-name">
 					<label for="kiosk-last-name" hidden>Last Name</label>
 					<input flex six placeholder="Last Name" type="text" ng-model="processData.authUser.last_name" name="kiosk-last-name">
-				</div>
+				</div> -->
 				<label for="kiosk-email" hidden>Email</label>
-				<input placeholder="Email" ng-model="processData.authUser.email" type="email" name="kiosk-email" required>
+				<input placeholder="Contact Email" ng-model="processData.authUser.email" type="email" name="kiosk-email" required>
 				<label for="kiosk-appointment-details" hidden>Details</label>
-				<textarea name="kiosk-appointment-details" ng-model="processData.authUser.appointment_details" placeholder="(Optional) Help us by describing the help you need." rows="5"></textarea>
-				<button class="unl-button button-block" ng-click="go('/{{groupId}}/kiosk/appointment', 'none');getAvailability()">Continue to make an appointment</button>
+				<textarea name="kiosk-appointment-details" ng-model="processData.authUser.appointment_details" placeholder="Help us by describing the help you need." rows="5" required></textarea>
+				<button ng-disabled="moreInformationForm.$invalid" class="unl-button button-block" ng-click="go('/{{groupId}}/kiosk/appointment', 'none');getAvailability()">Continue to make an appointment</button>
 			</div>
 		</form>
 		<button class="button-clear button-block" ng-click="startOver()">Start Over</button>

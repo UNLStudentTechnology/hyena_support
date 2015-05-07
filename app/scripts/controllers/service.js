@@ -37,6 +37,10 @@ angular.module('hyenaSupportApp')
 
       ServiceService.addLocation(serviceId, location).then(function(response) {
         $scope.newLocationTitle = "";
+        Notification.show('Location added successfully!', 'success');
+      }, function(error) {
+        console.log('Adding location error', error);
+        Notification.show('Sorry! There was an error adding that location.', 'error');
       });
     };
 
