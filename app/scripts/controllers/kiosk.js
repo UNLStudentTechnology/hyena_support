@@ -21,7 +21,7 @@ angular.module('hyenaSupportApp')
       selectedAppointment: null,
       selectedLocation: null,
       appointment_hour: -1,
-      startDay: moment().dayOfYear(),
+      startDay: moment().startOf('day').dayOfYear(),
       availableStaff: [],
       selectedStaff: 0
     };
@@ -35,7 +35,7 @@ angular.module('hyenaSupportApp')
 
     //Make sure users are starting at the first step
     if(angular.isUndefined($scope.processData.active_asset) || $scope.processData.active_asset === null)
-      $location.path(groupId+'/kiosk/choose');
+      $location.path(groupId+'/help/choose');
 
   	//Get Group with users
   	$scope.group = null;
@@ -50,6 +50,9 @@ angular.module('hyenaSupportApp')
       $scope.services = ServiceService.groupServices(groupId, 30).$asArray();
     }
 
+    /**
+     * Fired when a user loads the appointment selection page.
+     */
     $scope.getAvailability = function() {
       var assets = [];
       //Filter the list of users
@@ -71,15 +74,18 @@ angular.module('hyenaSupportApp')
 
       //Get the assets needed for the copmarison
       ReservationService.assets(assets, groupId).then(function(promises) {
-        console.log('Promises',promises);
         //Run the comparison
         $scope.processData.schedule = ReservationService.compareAvailability(promises, $scope.processData.defaultAsset.slot_size);
       });
     };
 
+    /**
+     * Fired when the user makes a change in the "Select someone" dropdown
+     */
     $scope.changeSchedule = function() {
+      //Get a list of assets to compare and display
       var assets = [];
-      if($scope.processData.selectedStaff != "0") {
+      if($scope.processData.selectedStaff) {
         assets.push($scope.processData.selectedStaff);
       }
       else {
@@ -87,6 +93,9 @@ angular.module('hyenaSupportApp')
          assets.push($scope.processData.availableStaff[i].uni_auth);
         }
       }
+
+      //Set the number of assets that will be compared
+      $scope.processData.defaultAsset.num_assets = assets.length;
 
       //Get the assets needed for the copmarison
       ReservationService.assets(assets, groupId).then(function(promises) {
@@ -96,6 +105,11 @@ angular.module('hyenaSupportApp')
       });
     };
 
+    /**
+     * Asks to confirm a new appointment
+     * @param int day  
+     * @param float hour
+     */
     $scope.addBooking = function(day, hour) {
       console.log('Adding Booking', day, hour);
       Notification.showModal('Confirm appointment', '#modal-confirm-appointment');
@@ -112,25 +126,27 @@ angular.module('hyenaSupportApp')
       };
     };
 
+    /**
+     * Actually creates the new appointment in the databasee, sends a response email.
+     */
     $scope.confirmAppointment = function() {
       var appointment = $scope.processData.selectedAppointment;
 
       if($scope.processData.selectedLocation != -1)
         appointment.location = $scope.processData.selectedLocation;
 
+      //Add the appointment to the database, then send a confirmation email
       AppointmentService.add(appointment, groupId).then(function(response) {
-        $scope.closeModal();
-        $scope.startOver();
-        Notification.show('Your appointment has been confirmed!', 'success');
-
         EmailService.send(
           $scope.processData.authUser.email, //To
           $scope.processData.authUser.first_name +' '+$scope.processData.authUser.last_name, //To Name 
           $scope.processData.authUser.first_name+', here are your appointment details.', //Subject
-          $scope.processData.messageToUser, //Content
+          $scope.processData.selectedAppointment.timestamp, //Content
           groupId
         ).then(function(response) {
-          //Notification.show('Your message was sent successfully.', 'success');
+          $scope.closeModal();
+          $scope.startOver();
+          Notification.show('Your appointment has been confirmed!', 'success');
         }, function(error) {
           Notification.show(error.message, 'error');
           console.log('Unable to send email', error);
@@ -184,6 +200,6 @@ angular.module('hyenaSupportApp')
 
     $scope.startOver = function() {
       $scope.processData = angular.copy(defaultData);
-      $location.path(groupId+'/kiosk/choose');
+      $location.path(groupId+'/help/choose');
     };
   });

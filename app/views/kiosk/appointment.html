@@ -34,7 +34,7 @@
 			</div>
 			<div horizontal layout gutters>
 				<div self-center ng-show="processData.startDay > moment().dayOfYear()"><unl-icon-button icon="chevron-left" ng-click="processData.startDay = processData.startDay - 6"></unl-icon-button></div>
-				<availability-calendar flex asset="processData.defaultAsset" bookings="bookings" schedule="processData.schedule" start-day="processData.startDay" num-days="3" on-change="addBooking" type="compare" any-available="true"></availability-calendar>
+				<availability-calendar flex asset="processData.defaultAsset" bookings="bookings" schedule="processData.schedule" start-day="processData.startDay" num-days="4" on-change="addBooking" type="compare" any-available="true"></availability-calendar>
 				<div self-center><unl-icon-button icon="chevron-right" ng-click="processData.startDay = processData.startDay + 6"></unl-icon-button></div>
 			</div>
 		</div>

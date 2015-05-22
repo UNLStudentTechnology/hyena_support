@@ -69,7 +69,7 @@ angular
       })
       //Kiosk
       .state('unl-layout-kiosk.support_kiosk', {
-        url: '/:groupId/kiosk',
+        url: '/:groupId/help',
         templateUrl: 'views/kiosk.html',
         controller: 'KioskCtrl'
       })
@@ -109,6 +109,6 @@ angular
   })
   .constant('FBURL', 'https://hyena-support.firebaseio.com/')
   .constant('APIKEY', 'NTM5NTc4Y2Y3MGZhMzA0NTJlNTQwZDQ5')
-  .constant('APIPATH', 'https://itsgethelp.unl.edu/public/api/1.0/')
-  .constant('PLATFORM_ROOT', 'http://st-studio.unl.edu/hyena_platform/public/')
+  .constant('APIPATH', 'https://itsgethelp.unl.edu/hyena/public/api/1.0/')
+  .constant('PLATFORM_ROOT', 'https://itsgethelp.unl.edu/hyena/public/')
   .constant('AUTH_SCOPE', 'groups');

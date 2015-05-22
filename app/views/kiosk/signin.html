@@ -25,7 +25,7 @@
 				<input placeholder="Contact Email" ng-model="processData.authUser.email" type="email" name="kiosk-email" required>
 				<label for="kiosk-appointment-details" hidden>Details</label>
 				<textarea name="kiosk-appointment-details" ng-model="processData.authUser.appointment_details" placeholder="Help us by describing the help you need." rows="5" required></textarea>
-				<button ng-disabled="moreInformationForm.$invalid" class="unl-button button-block" ng-click="go('/{{groupId}}/kiosk/appointment', 'none');getAvailability()">Continue to make an appointment</button>
+				<button ng-disabled="moreInformationForm.$invalid" class="unl-button button-block" ng-click="go('/{{groupId}}/help/appointment', 'none');getAvailability()">Continue to make an appointment</button>
 			</div>
 		</form>
 		<button class="button-clear button-block" ng-click="startOver()">Start Over</button>

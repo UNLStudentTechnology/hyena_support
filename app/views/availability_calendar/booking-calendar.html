@@ -4,7 +4,7 @@
 		<span class="day-heading">{{moment().dayOfYear(day).format('ddd DD')}}</span>
 		<select ng-change="doBooking(day, processData.appointment_hour)" ng-model="processData.appointment_hour">
 			<option value="-1">Select</option>
-			<option value="{{hour}}" ng-repeat="(hour, slot) in schedule[moment().dayOfYear(day).day()] track by $index" ng-if="!(convertKeyToNum(hour) >= moment().hour() && moment().dayOfYear() == day) && (convertKeyToNum(hour) >= hide_before && convertKeyToNum(hour) <= hide_after) && (((anyAvailable && slot !== asset.num_assets) || (!anyAvailable && !slot)) && !bookings[day][convertKeyToNum(hour)])">
+			<option value="{{hour}}" ng-repeat="(hour, slot) in schedule[moment().dayOfYear(day).day()] track by $index" ng-if="displayTimeBlock(day, hour, slot)">
 				{{hourToMinutes(convertKeyToNum(hour)).format('h:mm A')}}
 			</option>
 		</select>
